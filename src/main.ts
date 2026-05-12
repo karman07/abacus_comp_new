@@ -8,8 +8,13 @@ async function bootstrap() {
   dotenv.config();
   const app = await NestFactory.create(AppModule);
 
+  // ✅ Enable CORS
+  app.enableCors();
+
+  // ✅ Apply global validation pipe
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
+  // ✅ Swagger config
   const config = new DocumentBuilder()
     .setTitle('Auth API')
     .setDescription('NestJS Auth API with MongoDB, JWT, Swagger')

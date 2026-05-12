@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.schema';
+import { AdminCreateUserDto, AdminUpdateUserDto } from './dto/admin-user.dto';
 import { JwtAuthGuard } from '../auth/jwt.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -47,14 +48,14 @@ export class UsersController {
   // ✅ Create user (admin only)
   @Post()
   @Roles('admin')
-  async create(@Body() user: User): Promise<User> {
+  async create(@Body() user: AdminCreateUserDto): Promise<User> {
     return this.userService.create(user);
   }
 
   // ✅ Update user by ID (admin only)
   @Patch(':id')
   @Roles('admin')
-  async update(@Param('id') id: string, @Body() updateData: Partial<User>): Promise<User> {
+  async update(@Param('id') id: string, @Body() updateData: AdminUpdateUserDto): Promise<User> {
     return this.userService.update(id, updateData);
   }
 
