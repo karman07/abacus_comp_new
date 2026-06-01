@@ -22,11 +22,9 @@ export class AuthService {
       throw new BadRequestException('Username already exists');
     }
 
-    const hashedPassword = await bcrypt.hash(dto.password, 10);
-
     const user = await this.userService.create({
       username: dto.username,
-      password: hashedPassword,
+      password: dto.password,
       level: dto.level,
       role: dto.role || 'user',
     });
